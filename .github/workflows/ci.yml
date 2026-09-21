@@ -41,7 +41,7 @@ jobs:
       - name: Build frontend image
         run: |
           docker build \
-            --build-arg VITE_API_URL=http://54.157.239.177:5000/api \
+            --build-arg VITE_API_URL=http://52.91.51.121:5000/api \
             -t ${{ steps.login-ecr.outputs.registry }}/ledger-frontend:latest \
             ./frontend
 
