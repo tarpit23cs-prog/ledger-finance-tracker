@@ -62,7 +62,7 @@ jobs:
               "sudo docker pull 086307193186.dkr.ecr.us-east-1.amazonaws.com/ledger-frontend:latest",
               "sudo docker rm -f ledger-backend || true",
               "sudo docker rm -f ledger-frontend || true",
-              "sudo docker run -d --name ledger-backend --restart unless-stopped -p 5000:5000 --env-file ~/backend.env 086307193186.dkr.ecr.us-east-1.amazonaws.com/ledger-backend:latest",
+              "sudo docker run -d --name ledger-backend --restart unless-stopped -p 5000:5000 --env-file /home/ec2-user/backend.env 086307193186.dkr.ecr.us-east-1.amazonaws.com/ledger-backend:latest",
               "sudo docker run -d --name ledger-frontend --restart unless-stopped -p 80:80 086307193186.dkr.ecr.us-east-1.amazonaws.com/ledger-frontend:latest"
             ]' \
             --query "Command.CommandId" \
