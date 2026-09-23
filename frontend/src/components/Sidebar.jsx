@@ -13,53 +13,70 @@ const links = [
   { to: "/settings", label: "Settings" },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen = false, onClose = () => {} }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const initials = (user?.name || "?")
-    .split(" ")
-    .map((p) => p[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
+      .split(" ")
+      .map((p) => p[0])
+      .slice(0, 2)
+      .join("")
+      .toUpperCase();
 
   const handleLogout = () => {
     logout();
     navigate("/login");
+    onClose();
   };
 
   return (
-    <aside className="sidebar">
-      <div className="sidebar-brand">
-        <div className="sidebar-brand-mark">L</div>
-        <span className="sidebar-brand-name">Ledger</span>
-      </div>
+      <aside className={`sidebar${isOpen ? " open" : ""}`}>
+        <div className="sidebar-brand">
+          <div className="sidebar-brand-mark">L</div>
+          <span className="sidebar-brand-name">Ledger</span>
 
-      <nav className="sidebar-nav">
-        {links.map((link) => (
-          <NavLink
-            key={link.to}
-            to={link.to}
-            className={({ isActive }) => `sidebar-link${isActive ? " active" : ""}`}
+          <button
+              className="sidebar-close-btn"
+              onClick={onClose}
+              aria-label="Close navigation"
           >
-            {link.label}
-          </NavLink>
-        ))}
-      </nav>
-
-      <div className="sidebar-footer">
-        <div className="sidebar-user">
-          <div className="sidebar-user-avatar">{initials}</div>
-          <div className="sidebar-user-info">
-            <span className="sidebar-user-name">{user?.name}</span>
-            <span className="sidebar-user-email">{user?.email}</span>
-          </div>
+            ×
+          </button>
         </div>
-        <button className="btn btn-ghost btn-block mt-2" onClick={handleLogout}>
-          Log out
-        </button>
-      </div>
-    </aside>
+
+        <nav className="sidebar-nav">
+          {links.map((link) => (
+              <NavLink
+                  key={link.to}
+                  to={link.to}
+                  onClick={onClose}
+                  className={({ isActive }) =>
+                      `sidebar-link${isActive ? " active" : ""}`
+                  }
+              >
+                {link.label}
+              </NavLink>
+          ))}
+        </nav>
+
+        <div className="sidebar-footer">
+          <div className="sidebar-user">
+            <div className="sidebar-user-avatar">{initials}</div>
+
+            <div className="sidebar-user-info">
+              <span className="sidebar-user-name">{user?.name}</span>
+              <span className="sidebar-user-email">{user?.email}</span>
+            </div>
+          </div>
+
+          <button
+              className="btn btn-ghost btn-block mt-2"
+              onClick={handleLogout}
+          >
+            Log out
+          </button>
+        </div>
+      </aside>
   );
 }

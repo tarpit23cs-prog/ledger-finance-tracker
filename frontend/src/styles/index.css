@@ -916,10 +916,191 @@ table.table tbody tr:hover {
   font-size: 13px;
   color: var(--color-text-faint);
 }
+/* Mobile navigation */
+.mobile-header {
+  display: none;
+}
+
+.mobile-menu-btn {
+  border: 0;
+  background: transparent;
+  font-size: 24px;
+  line-height: 1;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.mobile-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.sidebar-close-btn {
+  display: none;
+}
+
+.sidebar-overlay {
+  display: none;
+}
 
 @media (max-width: 720px) {
-  .steps-row { flex-direction: column; }
-  .main-content { padding: var(--space-4); }
-  .sidebar { display: none; }
-  .landing-hero h1 { font-size: 30px; }
+  .steps-row {
+    flex-direction: column;
+  }
+
+  .app-shell {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .main-content {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: var(--space-4);
+    overflow-x: hidden;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+  }
+
+  /* Prevent flex/grid children from forcing page width */
+  .grid,
+  .page-header,
+  .card {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /* Long text / URLs */
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  span {
+    overflow-wrap: anywhere;
+  }
+
+  /* Charts / large content */
+  .recharts-responsive-container {
+    max-width: 100%;
+  }
+
+  /* Tables should scroll inside their own container */
+  .table-wrap {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  /* Mobile top navbar */
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 58px;
+    padding: 0 var(--space-4);
+
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+
+    position: sticky;
+    top: 0;
+    z-index: 800;
+  }
+
+  .mobile-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 8px;
+  }
+
+  .mobile-menu-btn:hover {
+    background: var(--color-background);
+  }
+
+  /* Sidebar drawer */
+  .sidebar {
+    display: flex;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: min(280px, 85vw);
+    max-width: 85vw;
+    height: 100vh;
+
+    z-index: 1000;
+
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+
+    box-shadow: var(--shadow-md);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-left: auto;
+
+    width: 32px;
+    height: 32px;
+
+    border: 0;
+    background: transparent;
+
+    font-size: 28px;
+    line-height: 1;
+
+    cursor: pointer;
+  }
+
+  .sidebar-close-btn:hover {
+    background: var(--color-bg);
+    border-radius: 8px;
+  }
+
+  .sidebar-overlay {
+    display: block;
+
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 0;
+    margin: 0;
+
+    border: 0;
+    background: rgba(0, 0, 0, 0.35);
+
+    z-index: 999;
+  }
+
+  .landing-hero h1 {
+    font-size: 30px;
+  }
 }
